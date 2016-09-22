@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Angular JS Forms</title>
+</head>
+<body>
+    <h2>The Hindu Headlines</h2>
+    <div ng-app="mainApp" ng-controller="CalcController">
+        <button  ng-click="News();">Get Latest News</button>
+        <div style="background-color:gold">
+            <ol ng-repeat="n in News" >
+                <li>{{n.title}}</li>
+                <li>{{n.description}}</li>
+            </ol>
+           
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script>
+        var mainApp = angular.module("mainApp", []);
+        mainApp.service('CalcService', function () {
+            var square = function (a)
+            {
+                return square = a * a;
+            }
+        });
+        mainApp.controller('CalcController', function ($scope, CalcService, $http) {
+            $scope.IsLatest = true;
+            $scope.square = function () {
+                $scope.result = CalcService.square($scope.number);
+            }
+            $scope.News = function ()
+            {
+                var url = "https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=703a447ddfff4a389cab5514609b60fc";
+               // url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + $scope.source + "&destinations=" + $scope.destination;
+                $http.get(url).success(function (response)
+                {
+                    $scope.News = response.articles;
+                    $scope.IsLatest = true;
+                    //alert(a[1]["title"]);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
