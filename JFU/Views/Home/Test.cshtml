@@ -1,18 +1,23 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <script>
+        function doGet() {
+            /* Option 2 */
+            var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=hello"
+            var result = JSON.parse(UrlFetchApp.fetch(url).getContentText());
+           
+            translatedText = result[0][0][0];
+            var json = {
+                'sourceText': sourceText,
+                'translatedText': translatedText
+            };
+            alert(json.sourceText);
+        }
+    </script>
 </head>
 <body>
-<form id="myContainer" method="post" action="/checkout"></form>
-    <script>
-        window.paypalCheckoutReady = function () {
-            paypal.checkout.setup('Merchant-ID', {
-                environment: 'sandbox',
-                container: 'myContainer'
-            });
-        };
-    </script>
-    <script src="//www.paypalobjects.com/api/checkout.js" async></script>
+  <button onclick="doGet();">Click</button>
 </body>
 </html>
 
